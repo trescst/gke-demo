@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: demo1-stable
+spec:
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        app: "demo-api"
+        track: "stable"
+    spec:
+      containers:
+        - name: "demo-api"
+          image: "trescst/demo:v1.0"
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /version
+              port: 80
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /version
+              port: 80
+              scheme: HTTP
+            initialDelaySeconds: 5
+            timeoutSeconds: 1

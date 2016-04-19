@@ -1,0 +1,8 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: demo1-ingress
+spec:
+  backend:
+    serviceName: demo-lb
+    servicePort: 80
